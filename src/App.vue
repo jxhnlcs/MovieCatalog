@@ -5,6 +5,13 @@
     <input placeholder="Adicione um filme" type="text" v-model="nomeFilme">
 
     <button @click="adicionarFilme">Adicionar</button>
+
+    <div>
+      <ul>
+        <li v-for="(nomesFilmes, key) in nomesFilmes" :key="key">
+        {{ nomesFilmes.nome }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -20,6 +27,13 @@ export default {
     return {
       nomeFilme: 'Vingadores',
       nomesFilmes: []
+    }
+  },
+
+  mounted(){
+    docRef(collection(db, "filmes"), {nomeFilme: this.nomeFilme})
+    .on('value'), (snapshot) => {
+      this.nomesFilmes = snapshot.val()
     }
   },
 
