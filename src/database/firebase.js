@@ -1,6 +1,5 @@
-import firebase from 'firebase/compat/app'; // npm install firebase
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = { 
     apiKey: "AIzaSyDtClUcSmuBw6LwO8JdCRpWOjAAt2549fM",
@@ -12,9 +11,11 @@ const firebaseConfig = {
     measurementId: "G-5YR9HB2EYQ"
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+// const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-const db = firebaseApp.firestore();
-const auth = firebase.auth();
+// const db = firebaseApp.firestore(firebaseApp);
+// const auth = firebase.auth();
 
-export { auth, db };
+export { db };

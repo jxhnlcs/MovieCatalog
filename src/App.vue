@@ -11,21 +11,24 @@
 <!-- Script -->
 
 <script>
-import {db} from './database/firebase'
 
-export default{
-  data(){
-    return{
+import { db } from './database/firebase'
+import { collection, addDoc } from "firebase/firestore";
+
+export default {
+  data() {
+    return {
       nomeFilme: 'Vingadores',
       nomesFilmes: []
     }
   },
 
-  methods:{
-    adicionarFilme(){
-      db.ref('filmes/').push({nomeFilme: this.nomeFilme})
-      .then((data) => {console.log(data)})
-      .catch((error) => {console.log(error)})
+  methods: {
+    async adicionarFilme() {
+      const docRef = await addDoc(collection(db, "filmes"), {
+        nomeFilme: this.nomeFilme
+      })
+      console.log(docRef.id)
     }
   }
 }
