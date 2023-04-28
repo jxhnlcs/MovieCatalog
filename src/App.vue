@@ -8,8 +8,7 @@
 
     <div>
       <ul>
-        <li v-for="(nomesFilmes, key) in nomesFilmes" :key="key">
-        {{ nomesFilmes.nome }}</li>
+        <li v-for="filme in filmes" :key="filme.id">{{ filme.nomeFilme }}</li>
       </ul>
     </div>
   </div>
@@ -21,6 +20,8 @@
 
 import { db } from './database/firebase'
 import { collection, addDoc } from "firebase/firestore";
+import firebase from 'firebase/app'
+import 'firebase/database'
 
 export default {
   data() {
@@ -30,11 +31,10 @@ export default {
     }
   },
 
-  mounted(){
-    docRef(collection(db, "filmes"), {nomeFilme: this.nomeFilme})
-    .on('value'), (snapshot) => {
+  mounted() { /// exibir filmes na tela
+    firebase.database().ref('filmes').on('value', snapshot => {
       this.nomesFilmes = snapshot.val()
-    }
+    })
   },
 
   methods: {
