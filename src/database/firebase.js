@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getDatabase } from "firebase/database";
+import { collection, addDoc } from "firebase/firestore";
 
 
 const firebaseConfig = { 
@@ -15,9 +15,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-// const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-// const db = firebaseApp.firestore(firebaseApp);
-// const auth = firebase.auth();
+export async function saveData(table, data) {
+    const docRef = await addDoc(collection(db, table), data)
+    return docRef
+}
 
 export { db };

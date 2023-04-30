@@ -7,6 +7,7 @@
     <button @click="adicionarFilme">Adicionar</button>
 
     <div>
+      <h2>{{ nomesFilmes }}</h2>
       <ul>
         <li v-for="filme in filmes" :key="filme.id">{{ filme.nomeFilme }}</li>
       </ul>
@@ -18,31 +19,35 @@
 
 <script>
 
-import { db } from './database/firebase'
-import { collection, addDoc } from "firebase/firestore";
-import firebase from 'firebase/app'
-import 'firebase/database'
+import { saveData, db } from './database/firebase'
+import { onSnapshot, collection } from "firebase/firestore";
 
 export default {
   data() {
     return {
       nomeFilme: 'Vingadores',
-      nomesFilmes: []
+      filmes: []
     }
   },
 
   mounted() { /// exibir filmes na tela
-    firebase.database().ref('filmes').on('value', snapshot => {
-      this.nomesFilmes = snapshot.val()
-    })
+    onSnapshot(collection(db, '/filmes'), (querySnapshot) => {
+      const documentos = []
+      querySnapshot.forEach((doc) => {
+        documentos.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+      this.filmes = documentos
+    });
   },
 
   methods: {
-    async adicionarFilme() {
-      const docRef = await addDoc(collection(db, "filmes"), {
+    adicionarFilme() {
+      saveData('filmes', {
         nomeFilme: this.nomeFilme
       })
-      console.log(docRef.id)
     }
   }
 }
