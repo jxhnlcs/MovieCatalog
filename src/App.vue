@@ -10,6 +10,8 @@
       <h2>{{ nomesFilmes }}</h2>
       <ul>
         <li v-for="filme in filmes" :key="filme.id">{{ filme.nomeFilme }}</li>
+        <button @click="editFilme(key)" >editar</button>
+        <button @click="removerFilme(key)" >remover</button>
       </ul>
     </div>
   </div>
@@ -19,14 +21,15 @@
 
 <script>
 
-import { saveData, db } from './database/firebase'
+import { saveData, updateData, deleteData, db } from './database/firebase'
 import { onSnapshot, collection } from "firebase/firestore";
 
 export default {
   data() {
     return {
       nomeFilme: 'Vingadores',
-      filmes: []
+      filmes: [],
+      editForm: []
     }
   },
 
@@ -47,6 +50,18 @@ export default {
     adicionarFilme() {
       saveData('filmes', {
         nomeFilme: this.nomeFilme
+      })
+    },
+
+    editFilme(key){
+      updateData('filmes', {
+        nomeFilme: this.editForm[key]
+      })
+    },
+
+    removerFilme(){
+      deleteData('filmes', {
+        
       })
     }
   }

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, deleteField } from "firebase/firestore";
 
 
 const firebaseConfig = { 
@@ -19,6 +19,16 @@ const db = getFirestore(app);
 export async function saveData(table, data) {
     const docRef = await addDoc(collection(db, table), data)
     return docRef
+}
+
+export async function updateData(table, data){
+    const doc = await updateDoc(collection(db, table), data)
+    return doc
+}
+
+export async function deleteData(table, data){
+    const docDel = await deleteField(collection(db, table), data)
+    return docDel
 }
 
 export { db };
