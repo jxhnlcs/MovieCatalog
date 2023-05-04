@@ -10,9 +10,9 @@
       <h2>{{ nomesFilmes }}</h2>
       <ul>
         <li v-for="filme in filmes" :key="filme.id">
-          <div style="display: flex; gap: .5rem;">
+          <div style="display: flex; gap: .5rem; justify-content: center;">
             <span>
-              {{ filme.nomeFilme }} - {{ filme.id }}
+              {{ filme.nomeFilme }}
             </span>
             <button @click="editFilme(filme.id)">editar</button>
             <button @click="removerFilme(filme.id)">remover</button>
