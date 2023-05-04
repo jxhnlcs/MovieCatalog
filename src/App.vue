@@ -14,6 +14,7 @@
             <span>
               {{ filme.nomeFilme }}
             </span>
+            <input type="text" v-model="editForm[key]">
             <button @click="editFilme(filme.id)">editar</button>
             <button @click="removerFilme(filme.id)">remover</button>
           </div>
@@ -55,7 +56,6 @@ export default {
 
   methods: {
     adicionarFilme() {
-    
       saveData('filmes', {
         nomeFilme: this.nomeFilme
       })
@@ -63,7 +63,7 @@ export default {
 
     editFilme(key) {
       updateData('filmes',key, {
-        nomeFilme: this.nomeFilme
+        nomeFilme: this.editForm[key]
       })
     },
 
