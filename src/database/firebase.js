@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, addDoc, doc, updateDoc, deleteField } from "firebase/firestore";
+import { collection, addDoc, updateDoc, deleteField,deleteDoc, doc } from "firebase/firestore";
 
 
 const firebaseConfig = { 
@@ -21,13 +21,15 @@ export async function saveData(table, data) {
     return docRef
 }
 
-export async function updateData(table, data){
-    const doc = await updateDoc(collection(db, table), data)
-    return doc
+export async function updateData(table, id, data) {
+    const docRef = doc(db, table, id);
+    const update = await updateDoc(docRef, data)
+    return update
 }
 
-export async function deleteData(table, data){
-    const docDel = await deleteField(collection(db, table), data)
+export async function deleteData(table, id) {
+    const docRef = doc(db, table, id);
+    const docDel = await deleteDoc(docRef)
     return docDel
 }
 

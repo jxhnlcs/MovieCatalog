@@ -9,9 +9,16 @@
     <div>
       <h2>{{ nomesFilmes }}</h2>
       <ul>
-        <li v-for="filme in filmes" :key="filme.id">{{ filme.nomeFilme }}</li>
-        <button @click="editFilme(key)" >editar</button>
-        <button @click="removerFilme(key)" >remover</button>
+        <li v-for="filme in filmes" :key="filme.id">
+          <div style="display: flex; gap: .5rem;">
+            <span>
+              {{ filme.nomeFilme }} - {{ filme.id }}
+            </span>
+            <button @click="editFilme(filme.id)">editar</button>
+            <button @click="removerFilme(filme.id)">remover</button>
+          </div>
+        </li>
+
       </ul>
     </div>
   </div>
@@ -48,21 +55,20 @@ export default {
 
   methods: {
     adicionarFilme() {
+    
       saveData('filmes', {
         nomeFilme: this.nomeFilme
       })
     },
 
-    editFilme(key){
-      updateData('filmes', {
-        nomeFilme: this.editForm[key]
+    editFilme(key) {
+      updateData('filmes',key, {
+        nomeFilme: this.nomeFilme
       })
     },
 
-    removerFilme(){
-      deleteData('filmes', {
-        
-      })
+    removerFilme(key) {
+      deleteData('filmes',key)
     }
   }
 }
