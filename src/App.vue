@@ -1,25 +1,33 @@
 <template>
   <div class="container">
-    <h1>Catálogo de Filmes</h1>
+    <div class="col-md-12">
+      <div class="text-center page-header">
+        <h1>Catálogo de Filmes</h1>
+      </div>
+    </div>
 
-    <input placeholder="Adicione um filme" type="text" v-model="nomeFilme">
+    <div class="input-group">
+      <input placeholder="Adicione um filme" class="form-control" type="text" v-model="nomeFilme">
+      <div class="input-group-btn">
+        <button class="btn btn-xs btn-success" @click="adicionarFilme">Adicionar</button>
+      </div>
+    </div>
 
-    <button @click="adicionarFilme">Adicionar</button>
+    <br />
 
     <div>
       <h2>{{ nomesFilmes }}</h2>
-      <ul>
-        <li v-for="filme in filmes" :key="filme.id">
-          <div style="display: flex; gap: .5rem; justify-content: center;">
-            <span>
+      <ul class="list-group">
+        <li class="list-group-item" v-for="filme in filmes" :key="filme.id">
+            <span class="nameFilm">
               {{ filme.nomeFilme }}
             </span>
-            <input type="text" v-model="editForm[key]">
-            <button @click="editFilme(filme.id)">editar</button>
-            <button @click="removerFilme(filme.id)">remover</button>
-          </div>
+            <span class="input-group"> 
+              <input class="form-control" placeholder="Editar o filme" type="text" v-model="editForm[key]">
+              <button class="btn btn-xs btn-info" @click="editFilme(filme.id)">Editar</button>
+              <button class="btn btn-xs btn-danger" @click="removerFilme(filme.id)">Remover</button>
+            </span>
         </li>
-
       </ul>
     </div>
   </div>
@@ -35,7 +43,7 @@ import { onSnapshot, collection } from "firebase/firestore";
 export default {
   data() {
     return {
-      nomeFilme: 'Vingadores',
+      nomeFilme: '',
       filmes: [],
       editForm: []
     }

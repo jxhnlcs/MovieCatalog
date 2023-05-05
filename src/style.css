@@ -109,3 +109,7 @@ h1{
 .container{
   text-align: center;
 }
+
+.nameFilm{
+  font-weight: bold;
+}
