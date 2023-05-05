@@ -2,7 +2,7 @@
   <div class="container">
     <div class="col-md-12">
       <div class="text-center page-header">
-        <h1 style="color: white;">Catálogo de Filmes</h1>
+        <h1 style="color: white; font-weight: bold;">Catálogo de Filmes</h1>
       </div>
     </div>
 
