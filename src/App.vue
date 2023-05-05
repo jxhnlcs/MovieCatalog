@@ -23,7 +23,7 @@
               {{ filme.nomeFilme }}
             </span>
             <span class="input-group"> 
-              <input class="form-control" placeholder="Editar o filme" type="text" v-model="editForm[key]">
+              <input :id="`input_update_${filme.id}`" class="form-control" placeholder="Editar o filme" v-model="editFilm[key]" type="text">
               <button class="btn btn-xs btn-info" @click="editFilme(filme.id)">Editar</button>
               <button class="btn btn-xs btn-danger" @click="removerFilme(filme.id)">Remover</button>
             </span>
@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       nomeFilme: '',
+      editFilm: '',
       filmes: [],
       editForm: []
     }
@@ -72,9 +73,11 @@ export default {
     },
 
     editFilme(key) {
+      const input_update = document.getElementById(`input_update_${key}`)
       updateData('filmes',key, {
-        nomeFilme: this.editForm[key]
+        nomeFilme: input_update.value
       })
+      this.editFilm.value = ''
     },
 
     removerFilme(key) {
