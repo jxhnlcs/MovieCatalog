@@ -9,7 +9,7 @@
     <div class="input-group">
       <input placeholder="Adicione um filme" class="form-control" type="text" v-model="nomeFilme">
       <div class="input-group-btn">
-        <button class="btn btn-xs btn-success" @click="adicionarFilme">Adicionar</button>
+        <button class="btnAdd" @click="adicionarFilme">Adicionar</button>
       </div>
     </div>
 
