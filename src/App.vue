@@ -66,6 +66,9 @@ export default {
 
   methods: {
     adicionarFilme() {
+      if (this.nomeFilme.trim() === ''){
+        return;
+      }
       saveData('filmes', {
         nomeFilme: this.nomeFilme
       })
