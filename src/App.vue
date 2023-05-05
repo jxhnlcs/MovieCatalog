@@ -68,6 +68,7 @@ export default {
       saveData('filmes', {
         nomeFilme: this.nomeFilme
       })
+      this.nomeFilme = ''
     },
 
     editFilme(key) {
